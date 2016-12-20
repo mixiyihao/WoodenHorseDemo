@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!--应用管理的权限清单-->
+<device-admin>
+    <uses-policies>
+        <!--   这部分是系统哈的提示语而我们在自己作程序的时候，可以输入字节想些的内容-->
+        <force-lock />
+    </uses-policies>
+</device-admin>
