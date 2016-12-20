@@ -2,12 +2,13 @@ package mixi.com.woodenhorsedemo;
 
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 /**
- * Created by mixi on 2016/12/20.
+ * 木马之设备管理器关键类
  */
 
 public class MiXiDeviceAdminReceiver extends DeviceAdminReceiver {
@@ -51,5 +52,18 @@ public class MiXiDeviceAdminReceiver extends DeviceAdminReceiver {
     @Override
     public void onPasswordFailed(Context context, Intent intent) {
         super.onPasswordFailed(context, intent);
+        show(context, "设备管理：密码错误");
     }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+    }
+
+    @Override
+    public ComponentName getWho(Context context) {
+        return super.getWho(context);
+
+    }
+
 }
