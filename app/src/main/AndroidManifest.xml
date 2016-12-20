@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mixi.com.woodenhorsedemo">
 
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,21 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".MiXiDeviceAdminReceiver"
-            android:description="@string/device_descritor"
-            android:label="@string/device_name"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin" />
-            <!--  动作跳转界面-->
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-
-        </receiver>
     </application>
 
 </manifest>
