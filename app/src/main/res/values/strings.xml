@@ -2,4 +2,5 @@
     <string name="app_name">WoodenHorseDemo</string>
     <string name="device_name">mixi</string>
     <string name="device_descritor">这是一个咪嘻的设备管理器</string>
+    <string name="notifycation_context"></string>
 </resources>
