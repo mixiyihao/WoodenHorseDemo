@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         ComponentName componentName = new ComponentName(this, MiXiDeviceAdminReceiver.class);
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-                "咪嘻咪嘻 广播");
+                "咪嘻咪嘻广播");
         startActivityForResult(intent, 01010);
     }
 
